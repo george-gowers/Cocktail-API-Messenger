@@ -8,7 +8,7 @@ class CocktailsController < ApplicationController
     @cocktail = Cocktail.new(cocktail_params)
     if @cocktail.save
       api_call
-      if valid_cocktail?
+      if valid?
         @instructions = @response[0]
         @ingredients = @response[1]
         @image = @response[2]
@@ -23,6 +23,7 @@ class CocktailsController < ApplicationController
     end
   end
 
+
   def reroute
     redirect_to root_path
   end
@@ -35,7 +36,7 @@ class CocktailsController < ApplicationController
     @response = Cocktail.api(name)
   end
 
-  def valid_cocktail?
+  def valid?
     !@response.nil?
   end
 
