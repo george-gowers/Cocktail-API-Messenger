@@ -7,13 +7,9 @@ class CocktailsController < ApplicationController
   def create
     @cocktail = Cocktail.new(cocktail_params)
     if @cocktail.save
-      api_call
-      if valid?
-        @instructions = @response[0]
-        @ingredients = @response[1]
-        @image = @response[2]
-        @name = @response[3]
-        UserMailer.recipe({ingredients: @ingredients, instructions: @instructions, image: @image, name: @name, email: @email }).deliver_now
+      response = api_call
+      if response != nil
+        UserMailer.recipe(response).deliver_now
         redirect_to mail_path
       else
         redirect_to not_valid_path
@@ -22,7 +18,6 @@ class CocktailsController < ApplicationController
       render :new
     end
   end
-
 
   def reroute
     redirect_to root_path
@@ -33,11 +28,7 @@ class CocktailsController < ApplicationController
   def api_call
     name = cocktail_params[:name]
     @email = cocktail_params[:email]
-    @response = Cocktail.api(name)
-  end
-
-  def valid?
-    !@response.nil?
+    return Cocktail.api(name)
   end
 
   def cocktail_params
