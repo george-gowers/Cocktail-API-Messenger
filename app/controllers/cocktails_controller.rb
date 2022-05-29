@@ -9,7 +9,7 @@ class CocktailsController < ApplicationController
     if @cocktail.save
       response = api_call
       if response != nil
-        UserMailer.recipe(response).deliver_now
+        UserMailer.recipe(response, @email).deliver_now
         redirect_to mail_path
       else
         redirect_to not_valid_path
