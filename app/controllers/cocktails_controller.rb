@@ -23,6 +23,16 @@ class CocktailsController < ApplicationController
     redirect_to root_path
   end
 
+  ###################
+
+  def add
+    # form with name, preparation, ingredients and image
+  end
+
+  def send
+    # post cocktail to API
+  end
+
   private
 
   def api_call

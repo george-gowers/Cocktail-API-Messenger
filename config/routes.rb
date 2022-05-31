@@ -9,4 +9,8 @@ Rails.application.routes.draw do
 
   get '/cocktails', to: 'cocktails#reroute'
 
+  ########################
+
+  resources :drink, only: [:new, :create]
+
 end
