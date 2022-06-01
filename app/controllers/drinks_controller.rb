@@ -5,8 +5,20 @@ class DrinksController < ApplicationController
   end
 
   def create
-    # if save
-      #send drink to database with api
+    modified_params = drink_params
+    modified_params[:name] = modified_params[:name].capitalize
+    @drink = Drink.new(modified_params)
+    if @drink.save
+      ##### post to api
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def drink_params
+    params.require(:drink).permit(:name, :ingredients, :preparation, :image)
   end
 
 end

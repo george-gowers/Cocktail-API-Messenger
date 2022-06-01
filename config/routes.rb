@@ -11,6 +11,6 @@ Rails.application.routes.draw do
 
   ########################
 
-  resources :drink, only: [:new, :create]
+  resources :drinks, only: [:new, :create]
 
 end
