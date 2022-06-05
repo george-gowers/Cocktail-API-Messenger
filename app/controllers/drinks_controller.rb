@@ -12,16 +12,23 @@ class DrinksController < ApplicationController
       post_api
       case @response.code
       when 201
-        raise
-        redirect_to added_drink_path
+        redirect_to added_drinks_path(name: @drink.name)
       when 422
-        redirect_to not_unique_path
+        redirect_to invalid_drinks_path(name: @drink.name)
       else
         redirect_to root_path
       end
     else
       render :new
     end
+  end
+
+  def added
+    @name = params[:name]
+  end
+
+  def invalid
+    @name = params[:name]
   end
 
   private

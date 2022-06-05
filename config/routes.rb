@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   ########################
 
-  resources :drinks, only: [:new, :create]
+  resources :drinks, only: [:new, :create] do
+    collection do
+      get :added
+      get :invalid
+    end
+  end
 
 end
